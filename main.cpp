@@ -36,8 +36,8 @@ YUVImage RgbToYuv(const Bitmap& bmp) {
 	for (int j = 0; j < height; j++) {
 		for (int i = 0; i < width; i++) {
 			int rgbIndex = (j*width + i) * 3;
-			int yIndex = j*width + i;
-			int uvIndex = (j/2) * (width/2) + (i/2);
+			int yIndex = (height - 1 - j)*width + i; // flip
+			int uvIndex = ((height - 1 - j)/2) * (width/2) + (i/2);
 			
 			// Get B G R
 			std::uint8_t b = bmp.data[rgbIndex];
@@ -46,7 +46,7 @@ YUVImage RgbToYuv(const Bitmap& bmp) {
 			
 			// Convert to YUV
 			yuv.yPlane[yIndex] = clrClamp(0.299*r + 0.587*g + 0.114*b + 16);
-			if ((i % 2 == 0) && (j % 2 == 0)) {
+			if ((i % 2 == 0) && ((height - 1 - j) % 2 == 0)) {
 				yuv.uPlane[uvIndex] = clrClamp(-0.14713*r - 0.28886*g + 0.436*b + 128);
 				yuv.vPlane[uvIndex] = clrClamp(0.615*r - 0.51499*g - 0.10001*b + 128);
 			}
