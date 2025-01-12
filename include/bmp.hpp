@@ -20,8 +20,8 @@ struct BitmapInfoHeader {
 
 	std::uint16_t planes		= 1; // always 1
 	std::uint16_t bitCount		= 0;
-	std::uint32_t compression	= 0; // 0 
-	std::uint32_t sizeImage		= 0;
+	std::uint32_t compression	= 0; // 0 if no compressed 
+	std::uint32_t sizeImage		= 0; 
 	std::int32_t xPelsPerMeter  = 0;
 	std::int32_t yPelsPerMeter  = 0;
 	
